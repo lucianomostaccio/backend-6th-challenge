@@ -1,42 +1,37 @@
-import { Router } from 'express'
-import { usuariosManager } from '../../dao/models/Usuario.js'
+import { Router } from 'express';
+import { usuariosManager } from '../../dao/models/Usuario.js';
 // @ts-ignore
-import { ADMIN_EMAIL } from '../../main.js'
+import { ADMIN_EMAIL } from '../../main.js';
 
-export const sesionesRouter = Router()
+export const sesionesRouter = Router();
 
 sesionesRouter.post('/', async (req, res) => {
-  const usuario = await usuariosManager.findOne(req.body)
+  const usuario = await usuariosManager.findOne(req.body);
   if (!usuario) {
-    return res
-      .status(401)
-      .json({
-        status: 'error',
-        message: 'login failed'
-      })
+    return res.status(401).json({
+      status: 'error',
+      message: 'login failed'
+    });
   }
   req.session['user'] = {
     nombre: usuario.nombre,
     apellido: usuario.apellido,
     email: usuario.email,
-  }
+  };
 
   if (usuario.email === ADMIN_EMAIL) {
-    req.session['user'].rol = 'admin'
+    req.session['user'].rol = 'admin';
   } else {
-    req.session['user'].rol = 'usuario'
+    req.session['user'].rol = 'usuario';
   }
 
-  res
-    .status(201)
-    .json({
-      status: 'success',
-      payload: req.session['user']
-    })
-})
+  // Redirección directa a la vista de productos
+  res.redirect('/productos');
+});
+
 
 sesionesRouter.delete('/current', async (req, res) => {
   req.session.destroy(err => {
-    res.status(204).json({ status: 'success' })
-  })
-})
+    res.redirect('/login');
+  });
+});
