@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { usuariosManager } from '../../models/Usuario.js'
+import { usuariosManager } from '../../dao/models/Usuario.js'
+// @ts-ignore
 import { ADMIN_EMAIL } from '../../main.js'
 
 export const sesionesRouter = Router()

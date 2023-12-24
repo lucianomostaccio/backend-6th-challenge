@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { usuariosManager } from '../../models/Usuario.js'
+import { usuariosManager } from '../../dao/models/Usuario.js'
 
 export const usuariosRouter = Router()
 
