@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { usuariosManager } from '../../dao/models/Usuario.js';
 // @ts-ignore
-import { ADMIN_EMAIL } from '../../main.js';
+import { ADMIN_EMAIL } from '../../config.js';
 
 export const sesionesRouter = Router();
 
