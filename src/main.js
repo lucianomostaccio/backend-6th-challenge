@@ -35,7 +35,7 @@ app.set('view engine', 'handlebars');
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/static", express.static("./static"));
+app.use(express.static(path.join(__dirname, "static"))); //specify static folder
 app.use(sesiones);
 
 // routers
