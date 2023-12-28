@@ -26,7 +26,7 @@ sesionesRouter.post('/', async (req, res) => {
   }
 
   // Redirección directa a la vista de productos
-  res.redirect('/productos');
+  res.redirect('/products');
 });
 
 

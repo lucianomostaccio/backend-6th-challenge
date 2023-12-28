@@ -2,7 +2,7 @@ const formLogin = document.querySelector('form')
 
 formLogin?.addEventListener('submit', async event => {
   event.preventDefault()
-
+  alert('sesión iniciada correctamente')
   const response = await fetch('/api/sesiones', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

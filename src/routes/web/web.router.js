@@ -4,20 +4,53 @@ import { onlyLogueadosWeb } from '../../middlewares/autorizacion.js'
 export const webRouter = Router()
 
 webRouter.get('/', (req, res) => {
-  res.redirect('/profile')
-})
+  if (req.session['user']) {
+    // Si el usuario está logueado, redirige a /profile
+    res.redirect('/profile');
+  } else {
+    // Si el usuario no está logueado, redirige a /login
+    res.redirect('/login');
+  }
+});
 
 webRouter.get('/register', (req, res) => {
-  res.render('register.handlebars', { pageTitle: 'Registro' })
-})
+  // Solo mostrar la vista de registro si el usuario no está logueado
+  if (!req.session['user']) {
+    res.render('register.handlebars', { pageTitle: 'Registro' });
+  } else {
+    // Redirigir al usuario a la vista de productos si ya está logueado
+    res.redirect('/products');
+  }
+});
+
 
 webRouter.get('/login', (req, res) => {
-  res.render('login.handlebars', { pageTitle: 'Login' })
-})
+  // Solo mostrar la vista de login si el usuario no está logueado
+  if (!req.session['user']) {
+    res.render('login.handlebars', { pageTitle: 'Login' });
+  } else {
+    // Redirigir al usuario a la vista de productos si ya está logueado
+    res.redirect('/products');
+  }
+});
 
 webRouter.get('/profile', onlyLogueadosWeb, (req, res) => {
   res.render('profile.handlebars', {
     pageTitle: 'Perfil',
     ...req.session['user']
-  })
-})
+  });
+});
+
+webRouter.get('/products', onlyLogueadosWeb, (req, res) => {
+  // cargar los productos directamente, o desde base de datos
+  const products = [
+    { name: 'Producto 1', price: 19.99 },
+    { name: 'Producto 2', price: 29.99 },
+    { name: 'Producto 3', price: 39.99 },
+  ];
+  console.log('Productos enviados a la vista:', products);
+  res.render('products.handlebars', {
+    pageTitle: 'Productos',
+    products,
+  });
+});
