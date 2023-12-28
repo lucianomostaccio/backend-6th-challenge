@@ -2,7 +2,6 @@ const formLogin = document.querySelector('form')
 
 formLogin?.addEventListener('submit', async event => {
   event.preventDefault()
-  alert('sesión iniciada correctamente')
   const response = await fetch('/api/sesiones', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -13,7 +12,7 @@ formLogin?.addEventListener('submit', async event => {
   if (response.status === 201) {
     const sesion = await response.json()
     alert(JSON.stringify(sesion))
-    window.location.href = '/profile'
+    window.location.href = '/products'
   } else {
     const error = await response.json()
     alert(error.message)

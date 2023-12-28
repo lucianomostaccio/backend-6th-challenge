@@ -1,4 +1,4 @@
-// server //
+// server
 import express from 'express'
 import mongoose from 'mongoose'
 import { engine } from 'express-handlebars'

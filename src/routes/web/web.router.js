@@ -48,8 +48,10 @@ webRouter.get('/products', onlyLogueadosWeb, (req, res) => {
     { name: 'Producto 2', price: 29.99 },
     { name: 'Producto 3', price: 39.99 },
   ];
-  console.log('Productos enviados a la vista:', products);
+  console.log('Usuario en sesión:', req.session['user']);
   res.render('products.handlebars', {
+    mensajeBienvenida: 'Bienvenido',
+    ...req.session['user'],
     pageTitle: 'Productos',
     products,
   });
